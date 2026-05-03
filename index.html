@@ -7,13 +7,15 @@
 <style>
 body {
   margin: 0;
-  height: 100vh;
+  overflow: hidden;
   background: black;
   font-family: monospace;
   color: white;
-
-  display: grid;
-  place-items: center; /* PERFECT CENTER */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column; /* FIX center vertical */
 }
 
 /* COUNTDOWN */
@@ -22,43 +24,41 @@ body {
   font-weight: bold;
   color: #ff4da6;
   text-shadow: 0 0 25px #ff4da6;
+  z-index: 2;
 }
 
 /* MESSAGE */
 #message {
   display: none;
-}
-
-/* CONTENT GROUP (IMPORTANT) */
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
   text-align: center;
+  z-index: 2;
+  animation: fadeIn 2s ease-in-out;
 }
 
 /* TITLE */
-h1 {
-  font-size: 45px;
+#message h1 {
+  font-size: 50px;
   color: #ff4da6;
-  margin: 0;
+  margin-bottom: 10px;
 }
 
 /* TEXT */
-p {
-  font-size: 18px;
-  margin: 4px 0;
+#message p {
+  font-size: 20px;
 }
 
-/* SLIDESHOW */
+/* SLIDESHOW (CENTER FIX) */
 .slideshow {
   position: relative;
   width: 240px;
   height: 240px;
+  margin: 25px auto; /* CENTER */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* IMAGES */
 .slide {
   position: absolute;
   width: 100%;
@@ -79,6 +79,7 @@ p {
 .petal {
   position: absolute;
   top: -50px;
+  font-size: 24px;
   animation: fall linear infinite;
 }
 
@@ -92,6 +93,8 @@ p {
 .heart {
   position: absolute;
   bottom: -20px;
+  color: #ff4da6;
+  font-size: 20px;
   animation: floatUp linear infinite;
 }
 
@@ -118,6 +121,12 @@ p {
     opacity: 0;
   }
 }
+
+/* FADE */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
 </style>
 </head>
 
@@ -126,21 +135,17 @@ p {
 <div id="countdown">3</div>
 
 <div id="message">
-  <div class="content">
+  <h1>🎂 Happy 21st Birthday, Laxmi 🎂</h1>
 
-    <h1>🎂 Happy 21st Birthday, Laxmi 🎂</h1>
-
-    <div class="slideshow">
-      <img src="photo1.jpg" class="slide active">
-      <img src="photo2.jpg" class="slide">
-      <img src="photo3.jpg" class="slide">
-    </div>
-
-    <p>You are my favorite person, Laxmi 💕</p>
-    <p>Welcome to your 21st year ✨</p>
-    <p>May your life be filled with happiness and love 💖</p>
-
+  <div class="slideshow">
+    <img src="photo1.jpg" class="slide active">
+    <img src="photo2.jpg" class="slide">
+    <img src="photo3.jpg" class="slide">
   </div>
+
+  <p>You are my favorite person, Laxmi 💕</p>
+  <p>Welcome to your 21st year ✨</p>
+  <p>May your life be filled with happiness and love 💖</p>
 </div>
 
 <script>
@@ -175,46 +180,46 @@ setInterval(() => {
 
 // PETALS
 function createPetal() {
-  const p = document.createElement("div");
-  p.className = "petal";
-  p.innerText = "🌹";
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.innerText = "🌹";
 
-  p.style.left = Math.random() * 100 + "vw";
-  p.style.fontSize = (Math.random() * 20 + 20) + "px";
-  p.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  petal.style.fontSize = (Math.random() * 20 + 20) + "px";
 
-  document.body.appendChild(p);
-  setTimeout(() => p.remove(), 5000);
+  document.body.appendChild(petal);
+  setTimeout(() => petal.remove(), 5000);
 }
 setInterval(createPetal, 120);
 
 // HEARTS
 function createHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerText = "💖";
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerText = "💖";
 
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.fontSize = (Math.random() * 15 + 15) + "px";
-  h.style.animationDuration = (Math.random() * 4 + 3) + "s";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 4 + 3) + "s";
 
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 6000);
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
 }
 setInterval(createHeart, 400);
 
 // FIREWORK
 function createFirework() {
-  const f = document.createElement("div");
-  f.className = "firework";
+  const firework = document.createElement("div");
+  firework.classList.add("firework");
 
-  f.style.left = Math.random() * 100 + "vw";
-  f.style.top = Math.random() * 100 + "vh";
+  firework.style.left = Math.random() * 100 + "vw";
+  firework.style.top = Math.random() * 100 + "vh";
 
-  document.body.appendChild(f);
-  setTimeout(() => f.remove(), 1000);
+  document.body.appendChild(firework);
+  setTimeout(() => firework.remove(), 1000);
 }
 setInterval(createFirework, 800);
+
 </script>
 
 </body>
